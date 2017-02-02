@@ -1,0 +1,41 @@
+#app {
+	position: relative;
+}
+
+ul.products {
+	padding: 0;
+	margin: 0;
+}
+
+ul.products li {
+	display: block;
+}
+
+.btn-outline.btn-red {
+	color: #ff5a3c;
+	border-color: #ff5a3c;
+}
+
+.btn-outline.btn-red:hover {
+	color: #fff;
+	background-color: #ff5a3c;
+}
+
+.top-bar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 1em 0 2em 0;
+}
+
+.brand {
+	font-size: 2em;
+}
+
+.logout-btn {
+	margin: 0;
+}
+
+.notification {
+	position: absolute;
+}
