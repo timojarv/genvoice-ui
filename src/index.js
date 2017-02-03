@@ -13,12 +13,14 @@ import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
 
 import App from './components/app';
+import Parent from './components/parent';
 import Menu from './components/menu';
 import InvoiceForm from './components/invoice/invoice_form';
 import ContactsView from './components/contacts/contacts_view';
 import AccountSettings from './components/user/account_settings';
 import Authenticated from './components/auth/require_auth';
 import LoginForm from './components/auth/login_form';
+import NewContactForm from './components/contacts/new_contact_form';
 
 const composeEnchancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducers, composeEnchancers(
@@ -32,10 +34,13 @@ ReactDOM.render(
 		<Router history={hashHistory}>
 			<Route path="/" component={App}>
 				<IndexRoute component={Authenticated(Menu)} />
-				<Route path="new" component={Authenticated(InvoiceForm)} />
-				<Route path="contacts" component={Authenticated(ContactsView)} />
-				<Route path="account" component={Authenticated(AccountSettings)} />
-				<Route path="login" component={LoginForm} />
+				<Route path="/new" component={Authenticated(InvoiceForm)} />
+				<Route path="/contacts" component={Authenticated(Parent)}>
+					<IndexRoute component={ContactsView} />
+					<Route path="new" component={NewContactForm} />
+				</Route>
+				<Route path="/account" component={Authenticated(AccountSettings)} />
+				<Route path="/login" component={LoginForm} />
 			</Route>
 		</Router>
 	</Provider>,

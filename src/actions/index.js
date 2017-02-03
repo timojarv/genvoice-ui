@@ -1,10 +1,11 @@
-import { RESTORE_DATA, AUTH_USER, DEAUTH_USER, FETCH_USER_DATA, UPDATE_USER_DATA } from './types';
+import { RESTORE_DATA, AUTH_USER, DEAUTH_USER, FETCH_USER_DATA, UPDATE_USER_DATA, UPDATE_CONTACTS } from './types';
 import axios from 'axios';
 import { hashHistory } from 'react-router';
 
-export *  from './notification';
+export * from './notification';
+import * as notification from './notification';
 
-const ROOT_URL = "http://localhost";
+const ROOT_URL = "http://192.168.1.7";
 
 export function restoreData(form, data) {
 	return {
@@ -39,25 +40,51 @@ export function logoutUser() {
 export function fetchUserData(token) {
 	return dispatch => {
 		axios.get(`${ROOT_URL}/user`, authorize(token))
-			.then(response => dispatch(fetchData(response.data)));
+			.then(response => {
+				dispatch(_fetchUserData(response.data));
+				dispatch(updateContacts(response.data.user.contacts));
+			});
 	};
 }
 
 export function updateUserData(data) {
 	return dispatch => {
 		axios.put(`${ROOT_URL}/user`, data, authorize())
-			.then(response => dispatch(fetchData(data)));
+			.then(() => {
+				dispatch(_fetchUserData(data));
+				dispatch(notification.push("Tallennettu!", "done"));
+			});
 	};
 }
 
-function fetchData(data) {
+export function addContact(formProps) {
+	return dispatch => {
+		authorizedPost("contacts", formProps).then(() => {
+			dispatch(notification.push("Kontakti lisätty!", "done"));
+			hashHistory.push("/contacts");
+		});
+	};
+}
+
+function _fetchUserData(data) {
 	return {
 		type: FETCH_USER_DATA,
 		payload: data
 	};
 }
 
+function updateContacts(contacts) {
+	return {
+		type: UPDATE_CONTACTS,
+		payload: contacts
+	};
+}
+
 function authorize(token = false) {
 	token = token ? token : localStorage.getItem("token");
 	return { headers: { Authorization: token }}
+}
+
+function authorizedPost(route, data) {
+	return axios.post(`${ROOT_URL}/${route}`, data, authorize());
 }

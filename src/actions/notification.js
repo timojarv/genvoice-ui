@@ -1,7 +1,7 @@
 import { PUSH_NOTIFICATION, POP_NOTIFICATION } from './types';
 
-export function push(message) {
-	const notification = { message, id: Date.now() };
+export function push(message, type = "error") {
+	const notification = { message, type, id: Date.now() };
 	return dispatch => {
 		setTimeout(() => dispatch(pop(notification.id)), 3000);
 		dispatch({

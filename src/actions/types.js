@@ -10,5 +10,7 @@ export const FETCH_USER_DATA = "fetch user data";
 
 export const UPDATE_USER_DATA = "update user data";
 
+export const UPDATE_CONTACTS = "update contacts";
+
 export const PUSH_NOTIFICATION = "push a notification";
 export const POP_NOTIFICATION = "pop a notification";
