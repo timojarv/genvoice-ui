@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
 import * as actions from '../../actions';
+import { required } from '../../validators';
 import ContactForm from '../form/contact_form';
 
 class NewContactForm extends Component {
@@ -19,7 +20,8 @@ class NewContactForm extends Component {
 }
 
 NewContactForm = reduxForm({
-    form: 'contact'
+    form: 'contact',
+    validate: required(["name", "address", "zip", "city", "country", "email"])
 })(NewContactForm);
 
 export default connect(null, actions)(NewContactForm);

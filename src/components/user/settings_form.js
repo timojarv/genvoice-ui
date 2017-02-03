@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
+import { required } from '../../validators';
+import { userDetailsSelector } from '../../selectors';
 
 import ContactForm from '../form/contact_form';
 import BankForm from '../form/bank_form';
@@ -30,9 +32,10 @@ class UserForm extends Component {
 }
 
 UserForm = reduxForm({
-	form: 'user'
+	form: 'user',
+	validate: required(["email"])
 })(UserForm);
 
-const mapStateToProps = state => ({ initialValues: state.user.data });
+const mapStateToProps = state => ({ initialValues: userDetailsSelector(state) });
 
 export default connect(mapStateToProps, actions)(UserForm);

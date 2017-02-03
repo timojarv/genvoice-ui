@@ -12,7 +12,14 @@ class ContactsView extends Component {
 	renderContacts() {
 		const contacts = this.props.contacts || [];
 		return contacts.map(contact => {
-			return <li key={contact._id}>{contact.name}</li>
+			return (
+			<li key={contact._id}>
+				{contact.name}
+				<Link to={`contacts/${contact._id}`} className="btn btn-outline">
+					Muokkaa
+				</Link>
+			</li>
+			);
 		});
 	}
 

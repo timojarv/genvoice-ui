@@ -1,18 +1,11 @@
-import { RESTORE_DATA, AUTH_USER, DEAUTH_USER, FETCH_USER_DATA, UPDATE_USER_DATA, UPDATE_CONTACTS } from './types';
+import { RESTORE_DATA, AUTH_USER, FLUSH_STATE, FETCH_USER_DATA, UPDATE_USER_DATA, SET_ACTIVE_CONTACT } from './types';
 import axios from 'axios';
 import { hashHistory } from 'react-router';
 
 export * from './notification';
 import * as notification from './notification';
 
-const ROOT_URL = "http://192.168.1.7";
-
-export function restoreData(form, data) {
-	return {
-		type: RESTORE_DATA[form],
-		payload: data
-	}
-}
+const ROOT_URL = "http://localhost";
 
 export function loginUser(email, password) {
 	return dispatch => 
@@ -27,13 +20,15 @@ export function loginUser(email, password) {
 				dispatch(fetchUserData(token));
 				//Redirect to root
 				hashHistory.push("/");
-			});
+			})
+			.catch(connectionError(dispatch));
 }
 
 export function logoutUser() {
 	return dispatch => {
 		localStorage.removeItem("token");
-		dispatch({ type: DEAUTH_USER });
+		notification.push("Kirjauduttu ulos", "info");
+		dispatch({ type: FLUSH_STATE });
 	};
 }
 
@@ -42,7 +37,6 @@ export function fetchUserData(token) {
 		axios.get(`${ROOT_URL}/user`, authorize(token))
 			.then(response => {
 				dispatch(_fetchUserData(response.data));
-				dispatch(updateContacts(response.data.user.contacts));
 			});
 	};
 }
@@ -52,17 +46,39 @@ export function updateUserData(data) {
 		axios.put(`${ROOT_URL}/user`, data, authorize())
 			.then(() => {
 				dispatch(_fetchUserData(data));
-				dispatch(notification.push("Tallennettu!", "done"));
-			});
+				dispatch(notification.push("Tallennettu", "done"));
+			})
+			.catch(connectionError(dispatch));
 	};
 }
 
 export function addContact(formProps) {
 	return dispatch => {
 		authorizedPost("contacts", formProps).then(() => {
-			dispatch(notification.push("Kontakti lisätty!", "done"));
+			dispatch(notification.push("Kontakti lisätty", "done"));
 			hashHistory.push("/contacts");
-		});
+		})
+		.catch(connectionError(dispatch))
+		.catch(err => dispatch(notification.push("Kontaktin lisääminen epäonnistui")));
+	};
+}
+
+export function updateContact(id, formProps) {
+	return dispatch => {
+		authorizedPut(`contacts/${id}`, formProps)
+			.then(() => {
+				dispatch(notification.push("Kontakti päivitetty", "done"));
+				hashHistory.push("/contacts");
+			})
+			.catch(connectionError(dispatch))
+			.catch(err => dispatch(notification.push("Kontaktin päivittäminen epäonnistui")));
+	};
+}
+
+export function setActiveContact(id) {
+	return {
+		type: SET_ACTIVE_CONTACT,
+		payload: id
 	};
 }
 
@@ -73,18 +89,33 @@ function _fetchUserData(data) {
 	};
 }
 
-function updateContacts(contacts) {
-	return {
-		type: UPDATE_CONTACTS,
-		payload: contacts
-	};
-}
-
 function authorize(token = false) {
 	token = token ? token : localStorage.getItem("token");
 	return { headers: { Authorization: token }}
 }
 
-function authorizedPost(route, data) {
-	return axios.post(`${ROOT_URL}/${route}`, data, authorize());
+function authorizedPost(route, data, token = false) {
+	return authorizedRequest("POST", route, data, token);
+}
+
+function authorizedPut(route, data, token = false) {
+	return authorizedRequest("PUT", route, data, token);
+}
+
+const connectionError = dispatch => err => {
+	if(!err.response || err.response.status === 404) {
+		dispatch(notification.push("Ei yhteyttä palvelimeen"));
+	} else {
+		return Promise.reject(err);
+	}
+};
+
+function authorizedRequest(method, route, data, token = false) {
+	const url = `${ROOT_URL}/${route}`;
+	return axios({
+		method,
+		url,
+		data,
+		...authorize(token)
+	});
 }

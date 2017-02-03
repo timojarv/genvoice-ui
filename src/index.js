@@ -21,6 +21,7 @@ import AccountSettings from './components/user/account_settings';
 import Authenticated from './components/auth/require_auth';
 import LoginForm from './components/auth/login_form';
 import NewContactForm from './components/contacts/new_contact_form';
+import EditContactForm from './components/contacts/edit_contact_form';
 
 const composeEnchancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducers, composeEnchancers(
@@ -38,6 +39,7 @@ ReactDOM.render(
 				<Route path="/contacts" component={Authenticated(Parent)}>
 					<IndexRoute component={ContactsView} />
 					<Route path="new" component={NewContactForm} />
+					<Route path=":id" component={EditContactForm} />
 				</Route>
 				<Route path="/account" component={Authenticated(AccountSettings)} />
 				<Route path="/login" component={LoginForm} />

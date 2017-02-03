@@ -1,15 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class Notifications extends Component {
-	render() {
+	renderNotification() {
 		const notification = this.props.notification;
 		if(notification) return (
-			<div className={`notification alert alert-${notification.type}`}>
+			<div key={1} className={`notification alert alert-${notification.type}`}>
 				{notification.message}
 			</div>
 		);
 		return null;
+	}
+
+
+	render() {
+		return (
+			<ReactCSSTransitionGroup
+				transitionName="fade"
+				transitionEnterTimeout={100}
+				transitionLeaveTimeout={300}>
+				{this.renderNotification()}
+			</ReactCSSTransitionGroup>
+		);
 	}
 }
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import LabeledField from '../labeled_field';
 import { SubmissionError } from 'redux-form';
-import Loader from "halogen/MoonLoader";
+import { required } from '../../validators';
 
 class Login extends Component {
 	handleLogin({ email, password }) {
@@ -27,10 +27,9 @@ class Login extends Component {
 			<form onSubmit={handleSubmit(this.handleLogin.bind(this))}>
 				{error && this.renderError(error) }
 				<h1>Kirjaudu sisään</h1>
-				<LabeledField name="email" label="Sähköposti" type="email" />
-				<LabeledField name="password" label="Salasana" type="password" />
+				<LabeledField validate={required} name="email" label="Sähköposti" type="email" />
+				<LabeledField validate={required} name="password" label="Salasana" type="password" />
 				<button type="submit" className="btn btn-primary">Kirjaudu</button>
-				{submitting && <Loader color="#26A65B" size="16px" margin="4px" />}
 			</form>
 		);
 	}

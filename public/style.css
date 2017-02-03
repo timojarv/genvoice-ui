@@ -12,13 +12,13 @@ ul.products li {
 }
 
 .btn-outline.btn-red {
-	color: #ff5a3c;
-	border-color: #ff5a3c;
+	color: #d32f2f;
+	border-color: #d32f2f;
 }
 
 .btn-outline.btn-red:hover {
 	color: #fff;
-	background-color: #ff5a3c;
+	background-color: #d32f2f;
 }
 
 .top-bar {
@@ -38,4 +38,26 @@ ul.products li {
 
 .notification {
 	position: absolute;
+}
+
+.fade-enter {
+	opacity: 0;
+	transition: all 0.1s;
+}
+
+.fade-enter.fade-enter-active {
+	opacity: 1;
+}
+
+.fade-leave {
+	opacity: 1;
+	transition: all 0.3s;
+}
+
+.fade-leave.fade-leave-active {
+	opacity: 0;
+}
+
+.form-input.error {
+	border-color: #d32f2f;
 }
