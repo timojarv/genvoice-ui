@@ -5,7 +5,7 @@ import { hashHistory } from 'react-router';
 export * from './notification';
 import * as notification from './notification';
 
-const ROOT_URL = "http://localhost";
+const ROOT_URL = "http://genvoice.timojarv.com";
 
 export function loginUser(email, password) {
 	return dispatch => 
