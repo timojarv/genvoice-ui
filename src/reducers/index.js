@@ -2,12 +2,12 @@ import { combineReducers } from 'redux';
 import { reducer as form} from 'redux-form';
 import { FLUSH_STATE } from '../actions/types';
 
-import { restoreSender, restoreRecipient } from './restore';
 import auth from './auth';
 import user from './user';
-import notification from './notification';
+import loader from './loader';
+import { reducer as notifs } from 'redux-notifications';
 
-const reducers = { form, auth, user, notification };
+const reducers = { form, auth, user, loader, notifs };
 
 const appReducer = combineReducers(reducers);
 

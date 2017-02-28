@@ -2,13 +2,14 @@ import React from 'react';
 import { Field } from 'redux-form';
 
 const renderField = ({input, label, type, meta: { touched, error }}) => (
-	<span>
+	<div>
+		<label>{label}</label>
 		<input {...input}
-			placeholder={label}
+			//placeholder={label}
 			type={type}
 			className={(touched && error) ? "form-input error" : "form-input"}
 		/>
-	</span>
+	</div>
 );
 
 export default function LabeledField(props) {

@@ -7,12 +7,16 @@ import BankForm from '../form/bank_form';
 class SenderForm extends Component {
 	render() {
 		return (
-			<FormSection name="sender" id="sender-form" className="col-6">
-				<h3 className="col-6">Lähettäjä</h3>
-				<ContactForm dataSet="sender" />
-				<h4>Pankkitiedot</h4>
-				<BankForm />
+			<div className="column-1-2">
+			<FormSection name="sender" id="sender-form">
+				<fieldset>
+					<legend>Lähettäjä</legend>
+					<ContactForm dataSet="sender" />
+					<h4>Pankkitiedot</h4>
+					<BankForm />
+				</fieldset>
 			</FormSection>
+			</div>
 		);
 	}
 }

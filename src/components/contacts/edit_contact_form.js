@@ -12,7 +12,6 @@ class EditContactForm extends Component {
     componentWillMount() {
         const id = this.props.params.id;
         this.props.setActiveContact(id);
-        this.props.fetchUserData();
     }
 
     componentWillUnmount() {
@@ -20,20 +19,28 @@ class EditContactForm extends Component {
     }
 
     handleFormSubmit(formProps) {
-        console.log("HERE");
-        console.log(formProps);
         const id = this.props.params.id;
-        this.props.updateContact(id, formProps);
+        this.props.showLoader("Tallennetaan");
+        this.props.updateContact(id, formProps).then(this.props.hideLoader);
     }
 
     render() {
         const { handleSubmit } = this.props;
         return (
             <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-                <h2>Muokkaa kontaktia</h2>
-                <ContactForm />
-                <Link to="/contacts" className="btn btn-outline">Peruuta</Link>
-                <button type="submit" className="btn">Tallenna</button>
+                <fieldset>
+                    <legend>Muokkaa kontaktia</legend>
+                    <ContactForm />
+                </fieldset>
+                <br /><br />
+                <fieldset className="button-group button-group-block">
+                    <div className="button-group">
+                        <Link to="/contacts" className="button">Peruuta</Link>
+                    </div>
+                    <div className="button-group">
+                        <button type="submit" className="button button-primary">Tallenna</button>
+                    </div>
+                </fieldset>
             </form>
         );
     }

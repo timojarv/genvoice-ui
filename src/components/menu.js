@@ -3,10 +3,12 @@ import { Link } from 'react-router';
 
 export default function Menu(props) {
 	return (
-		<div className="menu">
-			<Link to="/new" className="btn btn-outline">Luo uusi lasku</Link>
-			<Link to="/contacts" className="btn btn-outline">Kontaktit</Link>
-			<Link to="/account" className="btn btn-outline">Omat tiedot</Link>
-		</div>
+		<nav className="menu">
+			<ul>
+			<li><Link to="/new" className="button">Luo uusi lasku</Link></li>
+			<li><Link to="/contacts" className="button">Kontaktit</Link></li>
+			<li><Link to="/account" className="button">Omat tiedot</Link></li>
+			</ul>
+		</nav>
 	);
 }

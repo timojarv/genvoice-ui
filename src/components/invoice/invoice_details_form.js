@@ -6,13 +6,12 @@ import LabeledField from '../labeled_field';
 class InvoiceDetailsForm extends Component {
 	render() {
 		return (
-			<div id="invoice-details" className="row">
-				<div className="col-6">
-					<LabeledField className="col-6" name="title" label="Laskun otsikko" />
-				</div>
-				<div className="col-6">
-					<LabeledField className="col-6" name="term" label="Maksuehto" />
-				</div>
+			<div id="invoice-details" className="column-1">
+				<fieldset>
+					<legend>Laskun tiedot</legend>
+					<LabeledField name="title" label="Otsikko" />
+					<LabeledField name="term" label="Maksuehto" />
+				</fieldset>
 			</div>
 		);
 	}

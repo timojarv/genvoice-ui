@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { FormSection, Field, reduxForm } from 'redux-form';
 
-import ContactForm from '../form/contact_form';
+import ContactSelector from '../contacts/contact_selector';
 
 class RecipientForm extends Component {
 	render() {
 		return (
-			<FormSection name="recipient" id="recipient-form" className="col-6">
-				<h3 className="col-6">Vastaanottaja</h3>
-				<ContactForm dataSet="recipient" />
-			</FormSection>
+			<div className="column-1">
+				<fieldset>
+					<legend>Vastaanottaja</legend>
+					<ContactSelector />
+				</fieldset>
+			</div>
 		);
 	}
 }

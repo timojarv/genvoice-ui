@@ -9,22 +9,31 @@ import ContactForm from '../form/contact_form';
 import BankForm from '../form/bank_form';
 
 class UserForm extends Component {
-	componentWillMount() {
-		this.props.fetchUserData();
+	handleSettingsUpdate(...props) {
+		this.props.showLoader("Tallennetaan");
+		this.props.updateUserData(...props)
+			.then(this.props.hideLoader);
 	}
 
 	render() {
 		const { handleSubmit } = this.props;
 		return (
-			<form onSubmit={handleSubmit(this.props.updateUserData)} >
-				<div className="col-6">
-					<h2>Omat tiedot</h2>
-					<ContactForm />
+			<form className="row" onSubmit={handleSubmit(this.handleSettingsUpdate.bind(this))} >
+				<div className="column-1-2">
+					<fieldset>
+						<legend>Omat tiedot</legend>
+						<ContactForm />
+					</fieldset>
 				</div>
-				<div className="col-6">
-					<h2>Pankkitiedot</h2>
-					<BankForm />
-					<input type="submit" value="Tallenna" className="btn" />
+				<div className="column-1-2">
+					<fieldset>
+						<legend>Pankkitiedot</legend>
+						<BankForm />
+					</fieldset>
+					<br /><br />
+					<fieldset>
+						<button type="submit" className="button button-block button-primary">Tallenna</button>
+					</fieldset>
 				</div>
 			</form>
 		);
