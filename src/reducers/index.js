@@ -5,9 +5,10 @@ import { FLUSH_STATE } from '../actions/types';
 import auth from './auth';
 import user from './user';
 import loader from './loader';
+import invoices from './invoices';
 import { reducer as notifs } from 'redux-notifications';
 
-const reducers = { form, auth, user, loader, notifs };
+const reducers = { form, auth, user, loader, notifs, invoices };
 
 const appReducer = combineReducers(reducers);
 

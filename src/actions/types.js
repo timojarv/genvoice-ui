@@ -11,3 +11,5 @@ export const FLUSH_STATE = "@@genvoice/state/flush";
 
 export const SHOW_LOADER = "@@genvoice/loader/show";
 export const HIDE_LOADER = "@@genvoice/loader/hide";
+
+export const FETCH_INVOICES = "@@genvoice/invoices/fetch"

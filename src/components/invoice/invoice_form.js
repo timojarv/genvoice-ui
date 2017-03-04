@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
-import InvoiceDetailsForm from './invoice_details_form';
-import SenderForm from './sender_form';
-import RecipientForm from './recipient_form';
-import ProductsSection from './products_section';
+import InvoiceDetailsForm from '../form/invoice_details_form';
+import SenderForm from '../form/sender_form';
+import RecipientForm from '../form/recipient_form';
+import ProductsSection from '../form/products_section';
 
 import * as actions from '../../actions';
 import { recipientSelector, userDetailsSelector } from '../../selectors';
@@ -18,7 +18,7 @@ class InvoiceForm extends Component {
 
 	handleInvoiceSubmit(formProps) {
 		console.log(formProps);
-		this.props.createInvoice(formProps);
+		this.props.saveInvoice(formProps);
 	}
 
 	render() {
@@ -37,7 +37,7 @@ class InvoiceForm extends Component {
 				</div>
 				<br /><br />
 				<fieldset>
-					<button type="submit" className="button button-primary button-block">Luo lasku</button>
+					<button type="submit" className="button button-primary button-block">Tallenna lasku</button>
 				</fieldset>
 			</form>
 		);

@@ -18,7 +18,7 @@ import { checkAuthentication } from './actions';
 
 import App from './components/app';
 import Parent from './components/parent';
-import Menu from './components/menu';
+import Dashboard from './components/dashboard';
 import InvoiceForm from './components/invoice/invoice_form';
 import ContactsView from './components/contacts/contacts_view';
 import AccountSettings from './components/user/account_settings';
@@ -43,7 +43,7 @@ ReactDOM.render(
 	<Provider store={store} >
 		<Router history={hashHistory}>
 			<Route path="/" component={App}>
-				<IndexRoute component={Authenticated(Menu)} />
+				<IndexRoute component={Authenticated(Dashboard)} />
 				<Route path="/new" component={Authenticated(InvoiceForm)} />
 				<Route path="/contacts" component={Authenticated(Parent)}>
 					<IndexRoute component={ContactsView} />
