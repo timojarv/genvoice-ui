@@ -15,7 +15,7 @@ class InvoiceList extends Component {
 
     getRecipientName(r) {
         return this.props.contacts
-            ? this.props.contacts.reduce( (a, c) => c._id == r ? c.name : "", "" )
+            ? this.props.contacts.reduce( (a, c) => c._id == r ? c.name : a, "" )
             : "";
     }
 
