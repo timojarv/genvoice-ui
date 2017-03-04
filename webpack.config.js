@@ -14,6 +14,10 @@ module.exports = {
 				loader: 'style!css'
 			},
 			{
+				test: /\.less$/,
+				loader: 'style!css!less'
+			},
+			{
 				test: /\.jsx?$/,
 				loader: 'babel-loader',
 				exclude: /node_modules/,
@@ -23,5 +27,9 @@ module.exports = {
 			}
 		]
 	},
-	colors: true
+	colors: true,
+	lessLoader: {
+		lessPlugins: [
+		]
+	}
 }

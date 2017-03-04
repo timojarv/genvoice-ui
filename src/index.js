@@ -1,7 +1,7 @@
 /* Styles */
 //require("../public/siimple.min.css");
-require("../public/turret.min.css");
-require("../public/style.css");
+require("./styles/turret/turret/turret.less");
+require("./styles/style.css");
 
 import { styles } from 'redux-notifications';
 
