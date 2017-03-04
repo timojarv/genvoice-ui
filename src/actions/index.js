@@ -5,7 +5,7 @@ import { hashHistory } from 'react-router';
 import { actions as notifActions } from 'redux-notifications';
 export const sendNotif = opts => notifActions.notifSend({ dismissAfter: 3000, ...opts });
 
-const ROOT_URL = "http://genvoice.timojarv.com";
+const ROOT_URL = "https://genvoice.timojarv.com";
 
 export function loginUser(email, password) {
 	return dispatch => 
