@@ -23,7 +23,7 @@ export function logoutUser() {
 
 export function registerUser(email, password) {
 	return dispatch => 
-		axios.post(`${ROOT_URL}/user/new`, { email, password })
+		axios.post(`${ROOT_URL}/users/new`, { email, password })
 			.then(authenticateUser(dispatch))
 			.catch(connectionError(dispatch));
 }
@@ -55,13 +55,13 @@ export function checkAuthentication() {
 
 export function fetchUserData(token) {
 	return dispatch =>
-		axios.get(`${ROOT_URL}/user`, authorize(token))
+		axios.get(`${ROOT_URL}/users`, authorize(token))
 			.then(response => dispatch(_fetchUserData(response.data)));
 }
 
 export function updateUserData(data) {
 	return dispatch => 
-		axios.put(`${ROOT_URL}/user`, data, authorize())
+		axios.put(`${ROOT_URL}/users`, data, authorize())
 			.then(() => {
 				dispatch(_fetchUserData(data));
 				dispatch(sendNotif({ message: "Tallennettu", kind: "success" }));
