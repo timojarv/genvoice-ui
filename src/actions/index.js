@@ -60,10 +60,11 @@ export function fetchUserData(token) {
 }
 
 export function updateUserData(data) {
+	console.log(data);
 	return dispatch => 
 		axios.put(`${ROOT_URL}/users`, data, authorize())
 			.then(() => {
-				dispatch(_fetchUserData(data));
+				dispatch(_fetchUserData({ user: data }));
 				dispatch(sendNotif({ message: "Tallennettu", kind: "success" }));
 			})
 			.catch(connectionError(dispatch));
@@ -124,12 +125,9 @@ export function hideLoader() {
 }
 
 function _fetchUserData(data) {
-	return dispatch => {
-		dispatch({
-			type: FETCH_USER_DATA,
-			payload: data
-		});
-		return Promise.resolve();
+	return {
+		type: FETCH_USER_DATA,
+		payload: data
 	};
 }
 
