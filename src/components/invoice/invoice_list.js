@@ -8,7 +8,7 @@ class InvoiceList extends Component {
             <tr key={invoice._id}>
                 <td><a href={invoice.url } target="_blank" >{invoice.title}</a></td>
                 <td>{this.getRecipientName(invoice.recipient)}</td>
-                <td>{invoice.total}.00€</td>
+                <td>{invoice.total.toFixed(2)}€</td>
             </tr>
         );
     }

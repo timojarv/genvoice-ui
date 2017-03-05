@@ -4,6 +4,8 @@ export * from './loader';
 export * from './auth';
 export * from './contact';
 
+export { sendNotif } from './helpers';
+
 export const ROOT_URL = process.env.NODE_ENV === 'production' ? "https://genvoice.timojarv.com" : "http://localhost";
 
 
